@@ -88,6 +88,30 @@ class TestDataImport(unittest.TestCase):
 
         self.assertEqual(120, testallints)
 
+    def testTimeDateTime(self):
+        test_filename = "test_file"
+        test_file = open(test_filename, "w")
+        test_file.write("time,value\n")
+
+        for n in range(0, 100):
+            tempdate = str(datetime.datetime.now())
+            test_file.write(tempdate + "," + str(1) + "\n")
+
+        for n in range(0, 10):
+            tempdate = str(datetime.datetime.now())
+            test_file.write(tempdate + ",high" + "\n")
+
+        for n in range(0, 10):
+            tempdate = str(datetime.datetime.now())
+            test_file.write(tempdate + ",low" + "\n")
+        test_file.close()
+        testobject = idata(test_filename)
+        testalldatetimes = 0
+        for n in testobject._time:
+            if isinstance(n, datetime.datetime):
+                testalldatetimes = testalldatetimes + 1
+        self.assertEqual(120, testalldatetimes)
+
 
 if __name__ == '__main__':
     unittest.main()
