@@ -54,6 +54,40 @@ class TestDataImport(unittest.TestCase):
 
         self.assertEqual(testarray, testobject._value[0: 120])
 
+    def testImportDataIntegers(self):
+        test_filename = "test_file"
+        test_file = open(test_filename, "w")
+        test_file.write("time,value\n")
+        testarray = []
+        for n in range(0, 100):
+            testarray.append(1)
+        for n in range(0, 20):
+            if(n < 10):
+                testarray.append(300)
+            if(n >= 10):
+                testarray.append(40)
+
+        for n in range(0, 100):
+            tempdate = str(datetime.datetime.now())
+            test_file.write(tempdate + "," + str(1) + "\n")
+
+        for n in range(0, 10):
+            tempdate = str(datetime.datetime.now())
+            test_file.write(tempdate + ",high" + "\n")
+
+        for n in range(0, 10):
+            tempdate = str(datetime.datetime.now())
+            test_file.write(tempdate + ",low" + "\n")
+        test_file.close()
+        testobject = idata(test_filename)
+        testallints = 0
+
+        for n in testobject._value:
+            if isinstance(n, int):
+                testallints = testallints + 1
+
+        self.assertEqual(120, testallints)
+
 
 if __name__ == '__main__':
     unittest.main()
