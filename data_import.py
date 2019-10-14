@@ -24,11 +24,23 @@ class ImportData:
                         print("can't parse time properly")
                         print(row["time"])
 
-                    try:
-                        self._value.append(row['value'])
-                    except ValueError:
-                        print("can't parse values properly")
-                        print(row["value"])
+                    if(row["value"] == "high"):
+                        try:
+                            self._value.append(300)
+                        except ValueError:
+                            print("can't append " + row["value"])
+                    elif(row["value"] == "low"):
+                        try:
+                            self._value.append(40)
+                        except ValueError:
+                            print("can't append " + row["value"])
+                    if(row["value"] != "high" and row["value"] != "low"):
+                        newval = int(row["value"])
+                        try:
+                            self._value.append(newval)
+                        except ValueError:
+                            print("can't parse values properly")
+                            print(row["value"])
             csvfile.close()
         # open file, create a reader from csv.DictReader, and read input times and values
 
@@ -67,14 +79,14 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description= 'A class to import, combine, and print data from a folder.',
     prog= 'dataImport')
 
-    parser.add_argument('folder_name', type = str, help = 'Name of the folder')
+    parser.add_argument('folder_name', type=str, help='Name of the folder')
 
-    parser.add_argument('output_file', type=str, help = 'Name of Output file')
+    parser.add_argument('output_file', type=str, help='Name of Output file')
 
-    parser.add_argument('sort_key', type = str, help = 'File to sort on')
+    parser.add_argument('sort_key', type=str, help='File to sort on')
 
-    parser.add_argument('--number_of_files', type = int,
-    help = "Number of Files", required = False)
+    parser.add_argument('--number_of_files', type=int,
+    help = "Number of Files", required=False)
 
     args = parser.parse_args()
 
