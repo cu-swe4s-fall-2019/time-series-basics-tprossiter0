@@ -11,18 +11,40 @@ class ImportData:
         self._time = []
         self._value = []
 
+        with open(data_csv) as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                if row["time"] is "" or row["value"] is "":
+                    continue
+                    print("empty values here")
+                else:
+                    try:
+                        self._time.append(dateutil.parser.parse(row["time"]))
+                    except ValueError:
+                        print("can't parse time properly")
+                        print(row["time"])
+
+                    try:
+                        self._value.append(row['value'])
+                    except ValueError:
+                        print("can't parse values properly")
+                        print(row["value"])
+            csvfile.close()
         # open file, create a reader from csv.DictReader, and read input times and values
 
-    def linear_search_value(self, key_time):
+    #def linear_search_value(self, key_time):
+
         # return list of value(s) associated with key_time
         # if none, return -1 and error message
 
-    def binary_search_value(self,key_time):
+    #def binary_search_value(self,key_time):
+
         # optional extra credit
         # return list of value(s) associated with key_time
         # if none, return -1 and error message
 
-def roundTimeArray(obj, res):
+#def roundTimeArray(obj, res):
+    
     # Inputs: obj (ImportData Object) and res (rounding resoultion)
     # objective:
     # create a list of datetime entries and associated values
@@ -35,7 +57,8 @@ def roundTimeArray(obj, res):
     # which are not returned
 
 
-def printArray(data_list, annotation_list, base_name, key_file):
+#def printArray(data_list, annotation_list, base_name, key_file):
+    
     # combine and print on the key_file
 
 if __name__ == '__main__':
@@ -57,11 +80,11 @@ if __name__ == '__main__':
 
 
     #pull all the folders in the file
-    files_lst = # list the folders
+    ##files_lst = # list the folders
 
 
     #import all the files into a list of ImportData objects (in a loop!)
-    data_lst = []
+    ##data_lst = []
 
     #create two new lists of zip objects
     # do this in a loop, where you loop through the data_lst
