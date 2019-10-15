@@ -51,6 +51,9 @@ class ImportData:
         # open file, create a reader from csv.DictReader, and read input times and values
 
     def linear_search_value(self, key_time):
+        if(key_time is None);
+            print("key_time argument is required to use this method")
+            return -1
         if(isinstance(key_time, datetime.datetime) is False):
             raise Exception("key_time requires type datetime")
             sys.exit(1)
@@ -60,6 +63,8 @@ class ImportData:
             for n in range(0, len(self._time)):
                 if(key_time == self._time[n]):
                     values_to_return.append(self._value[n])
+        return values_to_return
+
 
 
 
