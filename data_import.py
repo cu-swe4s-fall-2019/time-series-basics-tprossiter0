@@ -1,4 +1,5 @@
 import csv
+import sys
 import dateutil.parser
 from os import listdir
 from os.path import isfile, join
@@ -23,15 +24,19 @@ class ImportData:
                     except ValueError:
                         print("can't parse time properly")
                         print(row["time"])
+                        sys.exit(1)
 
                     if(row["value"] == "high"):
                         try:
                             self._value.append(300)
+                            print("'high' value entered as 300")
                         except ValueError:
                             print("can't append " + row["value"])
+
                     elif(row["value"] == "low"):
                         try:
                             self._value.append(40)
+                            print("'low' value entered as 40")
                         except ValueError:
                             print("can't append " + row["value"])
                     if(row["value"] != "high" and row["value"] != "low"):
@@ -41,10 +46,30 @@ class ImportData:
                         except ValueError:
                             print("can't parse values properly")
                             print(row["value"])
+                            sys.exit(1)
             csvfile.close()
         # open file, create a reader from csv.DictReader, and read input times and values
 
-    #def linear_search_value(self, key_time):
+    def linear_search_value(self, key_time):
+        if(key_time is None);
+            print("key_time argument is required to use this method")
+            return -1
+        if(isinstance(key_time, datetime.datetime) is False):
+            raise Exception("key_time requires type datetime")
+            sys.exit(1)
+
+        values_to_return = []
+        if(isinstance(key_time, datetime.datetime)):
+            for n in range(0, len(self._time)):
+                if(key_time == self._time[n]):
+                    values_to_return.append(self._value[n])
+        return values_to_return
+
+
+
+
+
+
 
         # return list of value(s) associated with key_time
         # if none, return -1 and error message

@@ -112,6 +112,21 @@ class TestDataImport(unittest.TestCase):
                 testalldatetimes = testalldatetimes + 1
         self.assertEqual(120, testalldatetimes)
 
+    def testLinearSearchWrongInput(self):
+        test_filename = "test_file"
+        test_file = open(test_filename, "w")
+        test_file.write("time,value\n")
+        for n in range(0, 100):
+            tempdate = str(datetime.datetime.now())
+            test_file.write(tempdate + "," + str(1) + "\n")
+        test_file.close()
+        testobject = idata(test_filename)
+        testobject.linear_search_value(datetime.datetime.now())
+        with self.assertRaises(Exception) as ex:
+            testobject.linear_search_value(76)
+        output = str(ex.exception)
+        self.assertEqual(output, "key_time requires type datetime")
+
 
 if __name__ == '__main__':
     unittest.main()
