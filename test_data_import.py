@@ -5,6 +5,7 @@ import os.path
 import datetime
 import dateutil.parser
 from data_import import ImportData as idata
+from data_import import roundTimeArray as rta
 from os import path
 
 
@@ -126,6 +127,18 @@ class TestDataImport(unittest.TestCase):
             testobject.linear_search_value(76)
         output = str(ex.exception)
         self.assertEqual(output, "key_time requires type datetime")
+
+    def testRoundTimeArraySum(self):
+        test_filename = "activity_small.csv"
+        test_file = open(test_filename, "w")
+        test_file.write("time,value\n")
+        for n in range(0, 100):
+            tempdate = str(datetime.datetime(2019, 1, 1, 1, 12, 10))
+            test_file.write(tempdate + "," + str(1) + "\n")
+        test_file.close()
+        testobject = idata(test_filename)
+        self.assertEqual([(datetime.datetime(2019, 1, 1, 1, 10, 10), 100)],
+                         rta(testobject, 5))
 
 
 if __name__ == '__main__':
