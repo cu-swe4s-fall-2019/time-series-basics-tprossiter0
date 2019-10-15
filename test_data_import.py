@@ -123,7 +123,7 @@ class TestDataImport(unittest.TestCase):
         testobject = idata(test_filename)
         testobject.linear_search_value(datetime.datetime.now())
         with self.assertRaises(Exception) as ex:
-            testobject.linear_search_value(datetime.datetime.now())
+            testobject.linear_search_value(76)
         output = str(ex.exception)
         self.assertEqual(output, "key_time requires type datetime")
 
